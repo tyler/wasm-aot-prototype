@@ -59,7 +59,6 @@ ifneq ($(SANITIZE),)
 	LDFLAGS += -fsanitize=$(SANITIZE)
 endif
 
-
 .PHONY: all
 all: $(OUT_DIR) $(addprefix $(OUT_DIR)/,$(ALL))
 
@@ -78,7 +77,7 @@ $(OUT_DIR)/sexpr_dump: out/sexpr_dump.o $(PARSER_OBJS) $(WASM_CPP_OBJS)
 	$(CXX) -o $@ out/sexpr_dump.o $(PARSER_OBJS) $(WASM_CPP_OBJS) $(LDFLAGS) $(LLVM_LDFLAGS) $(LLVM_LIBS) $(LLVM_SYSTEMLIBS)
 
 $(OUT_DIR)/wat: $(WAT_OBJS) $(PARSER_OBJS) $(WASM_CPP_OBJS)
-	$(CXX) -o $@ $(WAT_OBJS) $(PARSER_OBJS) $(WASM_CPP_OBJS) $(LDFLAGS) $(LLVM_LDFLAGS) $(LLVM_LIBS)
+	$(CXX) -o $@ $(WAT_OBJS) $(PARSER_OBJS) $(WASM_CPP_OBJS) $(LDFLAGS) $(LLVM_LDFLAGS) $(LLVM_LIBS) $(LLVM_SYSTEMLIBS)
 
 $(PARSER_SRC)/wasm-keywords.h: $(PARSER_SRC)/wasm-keywords.gperf
 	gperf --compare-strncmp --readonly-tables --struct-type $< --output-file $@
